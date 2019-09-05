@@ -1,0 +1,75 @@
+  <div>
+
+ <div style="margin:3%;border:1px dashed black;padding-bottom:4%;">
+<h2 style="text-align:center;letter-spacing:3pt;border-top:2px solid black;border-bottom:2px solid black;padding:10px;text-transform:uppercase;">
+	GreenStickMatrix <font style="color:green;">Camera Application</font>
+	</h2>
+<br>
+	<table class="main">
+        <tr>
+            <td valign="top">
+<div id="my_camera"></div>
+	
+	<!-- First, include the Webcam.js JavaScript Library -->
+	<script type="text/javascript" src="webcam.js"></script>
+	
+	<!-- Configure a few settings and attach camera -->
+	<script type="text/javascript">
+	    Webcam.set({
+	        width: 320,
+	        height: 240,
+	        image_format: 'jpeg',
+	        jpeg_quality: 100
+	    });
+	    Webcam.attach('#my_camera');
+	</script>
+	
+	<!-- A button for taking snaps -->
+
+	<button class="snap" onclick="take()">Take Snap</button>
+      
+      <form id="myform" method="post" action="myscript.php">
+		<input id="mydata" type="hidden" name="mydata" value=""/>
+	</form>
+
+	<!-- Code to handle taking the snapshot and displaying it locally -->
+	<script language="JavaScript" type="text/javascript">
+	    function take_snapshot() {
+	        // take snapshot and get image data
+	        Webcam.snap(function (data_uri) {
+	            // display results in page
+	            document.getElementById('results').innerHTML = '<img src="' + data_uri + '"/>';
+
+
+	        });
+	    }
+
+	    function take() {
+	Webcam.snap( function(data_uri) {
+		 document.getElementById('results').innerHTML = '<img src="' + data_uri + '"/>';
+		var raw_image_data = data_uri.replace(/^data\:image\/\w+\;base64\,/, '');
+		
+		document.getElementById('mydata').value = raw_image_data;
+		document.getElementById('myform').submit();
+	} );
+	    }
+
+	</script>
+	
+            </td>
+            <td width="50">&nbsp;</td>
+            <td valign="top">
+                <div id="results" class="border">
+					<center>
+                    <img src="img/avatar.png" alt="me" style="height:240px;width:320px;display:none;" /></center>
+                </div>
+            </td>
+        </tr>
+    </table>
+
+
+    </div>
+        
+
+    </div>
+    </form>
